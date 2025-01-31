@@ -11,28 +11,20 @@ mainScene.create = function() {
   this.createHuman();
   
   // スペースキーで靴下発射
-  this.input.keyboard.on('keydown-SPACE', function(event) {
-    this.createSocks();
-  }, this);
+
   
   // ゲームオーバーを表す変数。初期値は「false」
   this.isGameOver = false;
-  // スコア
-  this.score = 0;
-  // 文字の表示
-  this.scoreText = this.add.text(600, 30, "スコア:"+this.score , {
-      font: '40px Open Sans',
-      fill: '#ff0000'
-  });
+
   
   // 靴下グループの作成
-  this.createSocksGroup();
+
   
   // サンタの作成
-  this.createSanta();
+
   
   // プレゼントグループの作成
-  this.createPresentGroup();
+
   
 };
 
@@ -42,33 +34,11 @@ mainScene.update = function() {
     return false;
   }
 
-  var speed = 600;
-  
-  var cursors = this.input.keyboard.createCursorKeys();
-  if(cursors.right.isDown) {
-    // 右に移動
-    this.human.anims.play('right', true);
-    this.human.setVelocityX(speed);
-  } else if(cursors.left.isDown) {
-    // 左に移動
-    this.human.anims.play('left', true);
-    this.human.setVelocityX(-speed);
-  } else {
-    // 移動停止
-    this.human.anims.play('turn', true);
-    this.human.setVelocityX(0);
-  }
+  // 人間が、左右キーで、左右にアニメーションつきで移動する
+
   
   // サンタが画面上部を左右に移動する
-  if (this.santa.x < 100) {
-    this.santa.dx = -this.santa.dx;
-    this.santa.setFlipX(true);
-  }
-  if (this.santa.x > 700) {
-    this.santa.dx = -this.santa.dx;
-    this.santa.setFlipX(false);
-  }
-  this.santa.x += this.santa.dx;
+
 
 };
 
@@ -119,86 +89,50 @@ mainScene.createHuman = function() {
 
 mainScene.createSocksGroup = function() {
   // 靴下グループを作成する
-  this.socksGroup = this.physics.add.group();
+
+
 };
 
 mainScene.createSocks = function() {
   // 人間がなげる靴下を作成する
-  var x = this.human.body.center.x;
-  var y = this.human.body.center.y;
-  
-  var socks = this.socksGroup.create(x, y, 'socks');
-  socks.setDisplaySize(120, 120);
-  socks.setVelocityY(-400);
-  socks.body.setAllowGravity(false);
+
+
+
 };
 
 mainScene.createSanta = function() {
   // サンタを作成する
-  this.santa = this.physics.add.image(400, 80, 'santa');
-  this.santa.setDisplaySize(150, 150);
-  this.santa.body.setAllowGravity(false);
-  this.santa.setFlipX(true);
-  this.santa.hp = 10;
-  this.santa.dx = 5;
-  // 文字の表示
-  this.hpText = this.add.text(650, 100, "HP:"+this.santa.hp , {
-      font: '40px Open Sans',
-      fill: '#ff0000'
-  });      
-  this.physics.add.overlap(this.santa, this.socksGroup, this.hitSanta, null, this);
+
+
+
   
 };
 
 mainScene.createPresentGroup = function() {
   // プレゼントグループを作成する
-  this.presentGroup = this.physics.add.group();
-  this.presentType = ['present1', 'present2', 'present3', 'present4'];
-  
-  this.physics.add.overlap(this.presentGroup, this.socksGroup, this.hitPresent, null, this);  
-  
-  this.presentTimer = this.time.addEvent({
-    delay : 500,
-    callback : this.createPresent,
-    loop : true,
-    callbackScope : this
-  });  
+
+
+
 };
 
 mainScene.createPresent = function() {
   // サンタの位置にプレゼントを作成する
-  var x = this.santa.body.center.x;
-  var y = this.santa.body.center.y;
-  var presentType = Phaser.Math.RND.pick(this.presentType);
-  
-  var present = this.presentGroup.create(x, y, presentType);
-  present.setDisplaySize(70, 70);
+
+
+
 };
 
 mainScene.hitPresent = function(present, socks) {
   // プレゼントと靴下が衝突したときの処理
-  present.destroy();
-  socks.destroy();
-  this.score++;
-  this.scoreText.setText("スコア:"+this.score);
-  if (this.score >= 20) {
-    this.gameClear();
-  }
+
+
   
 };
 
 mainScene.hitSanta = function(santa, socks) {
   // サンタに靴下が衝突したときの処理
-  socks.destroy();
-  santa.hp--;
-  var text = "HP:" + santa.hp;
-  
-  if (santa.hp >= 0) {
-    this.hpText.setText(text);
-  }
-  if (santa.hp <= 0) {
-    this.gameOver();
-  }
+
+
   
 };
 
