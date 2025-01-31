@@ -15,7 +15,8 @@ mainScene.create = function() {
   
   // ゲームオーバーを表す変数。初期値は「false」
   this.isGameOver = false;
-
+  // プレゼントの種類を定義
+  this.presentType = ['present1', 'present2', 'present3', 'present4'];
   
   // 靴下グループの作成
 
