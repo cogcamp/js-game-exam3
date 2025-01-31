@@ -24,6 +24,7 @@ mainScene.create = function() {
       font: '40px Open Sans',
       fill: '#ff0000'
   });
+  this.presentType = ['present1', 'present2', 'present3', 'present4'];
   
   // 靴下グループの作成
   this.createSocksGroup();
@@ -153,7 +154,6 @@ mainScene.createSanta = function() {
 mainScene.createPresentGroup = function() {
   // プレゼントグループを作成する
   this.presentGroup = this.physics.add.group();
-  this.presentType = ['present1', 'present2', 'present3', 'present4'];
   
   this.physics.add.overlap(this.presentGroup, this.socksGroup, this.hitPresent, null, this);  
   
